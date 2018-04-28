@@ -3,11 +3,13 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"strings"
 )
 
 const (
-	textWidth = 40
+	textWidth   = 40
+	defaultText = "Uh oh! No input..."
 )
 
 var (
@@ -85,7 +87,10 @@ func combineWithClippy(rows []string) (output []string) {
 }
 
 func main() {
-	text := ""
+	text := defaultText
+	if len(os.Args) > 1 {
+		text = os.Args[1]
+	}
 	for _, row := range combineWithClippy(generateTextBox(text, textWidth)) {
 		fmt.Println(row)
 	}
